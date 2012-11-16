@@ -15,6 +15,7 @@ transactor. The following commands are currently available
     $ lein quantize :initial-commit
     $ lein quantize :commit-count
     $ lein quantize :first-defined \"ns.qualified/fn-name\"
+    $ lein quantize :q "[:find ?email :where [_ :email/address ?email]]"
 
 If you run quantize without a transactor you'll end up analyzing your
 git history on every single run. Instead you can start up a transactor

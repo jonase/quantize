@@ -59,15 +59,20 @@
 
 (defn authors [db]
   (->> (q '[:find ?email (count ?commit)
-          :where
-          [?commit :commit/author ?author]
-          [?author :email/address ?email]]
+            :where
+            [?commit :commit/author ?author]
+            [?author :email/address ?email]]
           db)
        (sort-by second)
        reverse))
+
+(defn query [db query & args]
+  (apply q query db args))
 
 (def queries
   {:initial-commit initial-commit
    :commit-count commit-count
    :first-defined first-defined
-   :authors authors})
+   :authors authors
+   :q query})
+
