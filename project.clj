@@ -1,9 +1,7 @@
 (defproject quantize "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Leiningen plugin logic for codeq"
+  :url "https://github.com/jonase/quantize"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.0-beta1"]
-                 [org.cloudhoist/codeq "0.1.0-SNAPSHOT"]
-                 #_[quantize "0.1.0-SNAPSHOT"]]
-  :eval-in-leiningen true)
+                 [org.cloudhoist/codeq "0.1.0-SNAPSHOT"]])
