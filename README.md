@@ -1,25 +1,41 @@
 # quantize
 
-A Leiningen plugin to do many wonderful things.
+A Leiningen plugin for [codeq](https://github.com/Datomic/codeq).
 
 ## Usage
 
-FIXME: Use this for user-level plugins:
-
 Put `[quantize "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your
-`:user` profile, or if you are on Leiningen 1.x do `lein plugin install
-quantize 0.1.0-SNAPSHOT`.
+`:user` profile.
 
-FIXME: Use this for project-level plugins:
+Go to a local git checkout of a Clojure program you want to
+analyze. You can run quantize in memory without a running
+transactor. The following commands are currently available
 
-Put `[quantize "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
+    $ lein quantize :authors
+    $ lein quantize :initial-commit
+    $ lein quantize :commit-count
+    $ lein quantize :first-defined \"ns.qualified/fn-name\"
 
-FIXME: and add an example usage that actually makes sense:
+If you run quantize without a transactor you'll end up analyzing your
+git history on every single run. Instead you can start up a transactor
+(see [the datomic docs](http://datomic.com)) and add
 
-    $ lein quantize
+    {:quantize {:storage "free"}}
+
+to your project.clj. Other options are
+
+    :port (default 4334)
+    :host (default localhost)
+    :name (defaults to your projects name)
+
+If you use the same `:name` for several projects you can run queries
+across multiple projects at once.
+
+## TODO
+* More queries (pull requests welcome!)
 
 ## License
 
-Copyright © 2012 FIXME
+Copyright © 2012 Jonas Enlund
 
 Distributed under the Eclipse Public License, the same as Clojure.
