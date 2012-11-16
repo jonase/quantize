@@ -4,7 +4,7 @@ A Leiningen plugin for [codeq](https://github.com/Datomic/codeq).
 
 ## Usage
 
-Put `[quantize "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your
+Put `[lein-quantize "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your
 `:user` profile.
 
 Go to a local git checkout of a Clojure program you want to
