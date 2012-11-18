@@ -30,7 +30,13 @@
      [?cq :codeq/file ?f]
      (file-commits ?f ?c)]])
 
-(defn first-defined [db name]
+(defmulti query (fn [name & args] name))
+
+;; Custom query
+(defmethod query :q [_ db query & args]
+  (apply q query db args))
+
+(defmethod query :first-defined [_ db name]
   (let [;; From http://blog.datomic.com/2012/10/codeq.html
         query '[:find ?src (min ?date)
                 :in $ % ?name 
@@ -45,19 +51,19 @@
         res (q query db rules name)]
     (-> res first second)))
 
-(defn initial-commit [db]
+(defmethod query :initial-commit [_ db]
   (ffirst (q '[:find (min ?date)
                :where
                [_ :commit/committedAt ?date]]
              db)))
           
-(defn commit-count [db]
+(defmethod query :commit-count [_ db]
   (ffirst (q '[:find (count ?c)
                :where
                [?c :git/type :commit]]
              db)))
 
-(defn authors [db]
+(defmethod query :authors [_ db]
   (->> (q '[:find ?email (count ?commit)
             :where
             [?commit :commit/author ?author]
@@ -66,13 +72,4 @@
        (sort-by second)
        reverse))
 
-(defn query [db query & args]
-  (apply q query db args))
-
-(def queries
-  {:initial-commit initial-commit
-   :commit-count commit-count
-   :first-defined first-defined
-   :authors authors
-   :q query})
 
