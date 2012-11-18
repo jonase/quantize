@@ -1,5 +1,5 @@
 (ns quantize.queries
-  (:require [datomic.api :refer [q]]))
+  (:require [datomic.api :refer [q as-of since]]))
 
 ;; From http://blog.datomic.com/2012/10/codeq.html
 (def rules
@@ -72,4 +72,8 @@
        (sort-by second)
        reverse))
 
+(defmethod query :as-of [_ db inst & args]
+  (apply query (first args) (as-of db inst) (rest args)))
 
+(defmethod query :since [_ db inst & args]
+  (apply query (first args) (since db inst) (rest args)))
